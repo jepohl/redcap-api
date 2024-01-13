@@ -1,14 +1,14 @@
 redcap_export_report <- function(report_id, token = NULL, df_details = TRUE){
   
   if(is.null(token)){
-    token <- readline(prompt = "Enter unique REDCap API token: ") #"3F21D4B6398BFFA9360681277CA2D7FF"
+    token <- readline(prompt = "Enter unique REDCap API token: ")
   }
   
   url <- "https://redcap.bumc.bu.edu/api/"
   formData <- list("token"=token,
                    content='report',
                    format='csv',
-                   report_id=report_id, ## need to update depending on the report (34869)
+                   report_id=report_id, 
                    csvDelimiter='',
                    rawOrLabel='raw',
                    rawOrLabelHeaders='raw',
