@@ -32,8 +32,9 @@ redcap_import_records <- function(
                    returnFormat='csv'
   )
   response <- httr::POST(url, body = formData, encode = "form")
-  result <- httr::content(response)
+  result <- httr::content(response, show_col_types = FALSE, progress = FALSE)
   
+  cat("Errors: \n")
   print(result)
 }
 
