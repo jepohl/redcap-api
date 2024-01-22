@@ -42,6 +42,9 @@ prep_instrument_data_import <- function(data, token = NULL, instrument = NULL, a
     data <- mutate(data, redcap_repeat_instance = row_number(), .after = 'redcap_repeat_instance')
     data <- ungroup(data)
   }
+  
+  cat("Adding the completeness indicator column...\n")
+  data <- mutate(data, !!paste0(instrument, '_complete') := '2')
     
   cat("Converting to CSV object...", "\n")
   data <- readr::format_csv(data, na = "", quote = "needed")
@@ -53,10 +56,10 @@ prep_instrument_data_import <- function(data, token = NULL, instrument = NULL, a
 
 # token <- "3F21D4B6398BFFA9360681277CA2D7FF"
 # df <- data.frame(id = c(rep(100,3), rep(101,3), rep(102,3)),
-#                    vitaldt = lubridate::now() + minutes(sample(1:100, 9)), 
-#                    sbp = rnorm(9, 95, 5), 
+#                    vitaldt = lubridate::now() + lubridate::minutes(sample(1:100, 9)),
+#                    sbp = rnorm(9, 95, 5),
 #                    banana = rnorm(9))
 # 
 # 
-# df_str <- prep_instrument_data_import(df, token)
+# df_str <- prep_instrument_data_import(df, token, instrument = 'vital_sign_data')
 

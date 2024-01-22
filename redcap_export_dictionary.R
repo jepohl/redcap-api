@@ -19,7 +19,7 @@ redcap_export_dictionary <- function(token = NULL){
 }
 
 
-
+# token <- "3F21D4B6398BFFA9360681277CA2D7FF"
 # data_dict <- redcap_export_dictionary(token)
 # id_field <- data_dict$field_name[1]
 # instrument_fields <- data_dict[which(data_dict$form_name=='vital_sign_data' & data_dict$field_type!='calc'),][['field_name']]
