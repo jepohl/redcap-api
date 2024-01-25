@@ -1,9 +1,9 @@
 
-get_instruments <- function(token=NULL){
+get_instruments <- function(url, token=NULL){
   
   if(is.null(token)){token <- readline(prompt = "Enter unique REDCap API token: ")}
   
-  url <- "https://redcap.bumc.bu.edu/api/"
+  url <- url #"https://redcap.bumc.bu.edu/api/" or "https://redcap.partners.org/redcap/api/"
   formData <- list("token"=token,
                    content='instrument',
                    format='csv',

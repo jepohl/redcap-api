@@ -1,11 +1,13 @@
 # rm(list = setdiff(ls(), lsf.str()))
 
 
-prep_instrument_data_import <- function(data, token = NULL, instrument = NULL, autoNumberInstances = FALSE){
+prep_instrument_data_import <- function(data, url, token = NULL, instrument = NULL, autoNumberInstances = FALSE){
   require(tidyverse)
   
+  url <- url #"https://redcap.bumc.bu.edu/api/" or "https://redcap.partners.org/redcap/api/"
+  
   if(is.null(token)){token <- readline(prompt = "Enter unique REDCap API token: ")}
-  instrument_names <- get_instruments(token)
+  instrument_names <- get_instruments(url, token)
   
   if(is.null(instrument)){
     for(i in 1:length(instrument_names)){cat(i, instrument_names[i], "\n")}
@@ -16,7 +18,7 @@ prep_instrument_data_import <- function(data, token = NULL, instrument = NULL, a
     instrument <- instrument_names[as.numeric(readline(prompt = "Select the desired instrument number: "))]
   }
   
-  data_dict <- redcap_export_dictionary(token)
+  data_dict <- redcap_export_dictionary(url, token)
   data_dict <- data_dict[which(data_dict$form_name==instrument),]
   instrument_fields <- c("id", data_dict$field_name)
   calculated_fields <- data_dict$field_name[which(data_dict$field_type == "calc")]

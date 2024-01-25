@@ -1,12 +1,12 @@
 
 
-redcap_export_dictionary <- function(token = NULL){
+redcap_export_dictionary <- function(url, token = NULL){
   
   if(is.null(token)){
     token <- readline(prompt = "Enter unique REDCap API token: ")
   }
   
-  url <- "https://redcap.bumc.bu.edu/api/"
+  url <- url #"https://redcap.bumc.bu.edu/api/" or "https://redcap.partners.org/redcap/api/"
   formData <- list("token"=token,
                    content='metadata',
                    format='csv',

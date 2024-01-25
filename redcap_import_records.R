@@ -9,6 +9,7 @@
 
 redcap_import_records <- function(
   data, ## dataframe in redcap format to upload
+  url, #"https://redcap.bumc.bu.edu/api/" or "https://redcap.partners.org/redcap/api/"
   token = NULL, ## REDCap API token
   overwrite = TRUE, ## Logical (T/F), should existing records be overwritten
   forceNewIDs = FALSE ## Force all data to be imported as a new patient(s)
@@ -18,7 +19,6 @@ redcap_import_records <- function(
   if(overwrite){overwriteBehavior <-'overwrite'} else {overwriteBehavior <- 'normal'}
   if(forceNewIDs){forceAutoNumber <- 'true'} else {forceAutoNumber <- 'false'}
   
-  url <- "https://redcap.bumc.bu.edu/api/"
   formData <- list("token"=token,
                    content='record',
                    action='import',
@@ -35,6 +35,6 @@ redcap_import_records <- function(
   result <- httr::content(response, show_col_types = FALSE, progress = FALSE)
   
   cat("Errors: \n")
-  print(result)
+  return(result)
 }
 
