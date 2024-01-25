@@ -7,16 +7,18 @@ prep_instrument_data_import <- function(data, url, token = NULL, instrument = NU
   url <- url #"https://redcap.bumc.bu.edu/api/" or "https://redcap.partners.org/redcap/api/"
   
   if(is.null(token)){token <- readline(prompt = "Enter unique REDCap API token: ")}
-  instrument_names <- get_instruments(url, token)
+  
   
   if(is.null(instrument)){
+    instrument_names <- get_instruments(url, token)
     for(i in 1:length(instrument_names)){cat(i, instrument_names[i], "\n")}
     instrument <- instrument_names[as.numeric(readline(prompt = "Select the desired instrument number: "))]
-  } else if(!(instrument %in% instrument_names)){
-    cat("INVALID INSTRUMENT NAME...\n")
-    for(i in 1:length(instrument_names)){cat(i, instrument_names[i], "\n")}
-    instrument <- instrument_names[as.numeric(readline(prompt = "Select the desired instrument number: "))]
-  }
+    } 
+  # else if(!(instrument %in% instrument_names)){
+  #   cat("INVALID INSTRUMENT NAME...\n")
+  #   for(i in 1:length(instrument_names)){cat(i, instrument_names[i], "\n")}
+  #   instrument <- instrument_names[as.numeric(readline(prompt = "Select the desired instrument number: "))]
+  # }
   
   data_dict <- redcap_export_dictionary(url, token)
   data_dict <- data_dict[which(data_dict$form_name==instrument),]
