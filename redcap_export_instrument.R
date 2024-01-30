@@ -1,6 +1,6 @@
 
 
-redcap_export_report <- function(url, token = NULL, instrument = NULL, df_details = TRUE){
+redcap_export_instrument <- function(url, token = NULL, instrument = NULL, df_details = TRUE){
   
   if(is.null(token)){
     token <- readline(prompt = "Enter unique REDCap API token: ")

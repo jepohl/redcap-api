@@ -2,7 +2,7 @@
 
 
 prep_instrument_data_import <- function(data, url, token = NULL, instrument = NULL, autoNumberInstances = FALSE){
-  require(tidyverse)
+  # require(tidyverse)
   
   url <- url #"https://redcap.bumc.bu.edu/api/" or "https://redcap.partners.org/redcap/api/"
   
