@@ -1,7 +1,7 @@
 # rm(list = setdiff(ls(), lsf.str()))
 
 
-prep_instrument_data_import <- function(data, url, token = NULL, instrument = NULL, autoNumberInstances = FALSE){
+prep_instrument_data_import <- function(data, url, token = NULL, instrument = NULL, autoNumberInstances = FALSE, repeatInstrument = TRUE){
   # require(tidyverse)
   
   url <- url #"https://redcap.bumc.bu.edu/api/" or "https://redcap.partners.org/redcap/api/"
@@ -33,7 +33,8 @@ prep_instrument_data_import <- function(data, url, token = NULL, instrument = NU
     cat("Removing calculated REDCap fields: ", calculated_fields, "\n")
     data <- data[,which(!colnames(data) %in% calculated_fields)] 
   }
-  
+
+  if(repeatInstrument){
   cat("Adding column for instrument: ", instrument, "\n")
   data <- mutate(data, redcap_repeat_instrument = instrument, .after = 'id')
   
@@ -45,7 +46,7 @@ prep_instrument_data_import <- function(data, url, token = NULL, instrument = NU
     data <- group_by(data, id)
     data <- mutate(data, redcap_repeat_instance = row_number(), .after = 'redcap_repeat_instance')
     data <- ungroup(data)
-  }
+  }}
   
   cat("Adding the completeness indicator column...\n")
   data <- mutate(data, !!paste0(instrument, '_complete') := '2')
